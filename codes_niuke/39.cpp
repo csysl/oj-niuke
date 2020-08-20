@@ -1,7 +1,3 @@
-//
-// Created by 92582 on 8/20/2020.
-//
-
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -17,10 +13,10 @@ struct TreeNode {
 class Solution {
 public:
     bool IsBalanced_Solution(TreeNode *pRoot) {
-        if (pRoot==nullptr) return true;
+        if (pRoot == nullptr) return true;
         auto a = length(pRoot->left);
         auto b = length(pRoot->right);
-        if (abs(a - b) > 1) return false;
+        if (abs(a - b) > 1 || a == -1 || b == -1) return false;
         auto ba = IsBalanced_Solution(pRoot->left);
         auto bb = IsBalanced_Solution(pRoot->right);
         return ba && bb;
@@ -31,6 +27,8 @@ public:
 
         auto a = length(root->left);
         auto b = length(root->right);
+
+        if (abs(a - b) > 1 || a == -1 || b == -1) return -1;   //任一子树不平衡，一路返回
 
         return max(a, b) + 1;
     }
