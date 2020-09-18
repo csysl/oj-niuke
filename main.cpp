@@ -1,44 +1,37 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <map>
 
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-
-    explicit TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
-
 class Solution {
 public:
-    bool IsBalanced_Solution(TreeNode *pRoot) {
-        if (pRoot == nullptr) return true;
-        auto a = length(pRoot->left);
-        auto b = length(pRoot->right);
-        if (abs(a - b) > 1 || a == -1 || b == -1) return false;
-        auto ba = IsBalanced_Solution(pRoot->left);
-        auto bb = IsBalanced_Solution(pRoot->right);
-        return ba && bb;
-    }
+    int InversePairs(vector<int> data) {
+        long long res=0;
+        map<int,int> kv;
 
-    int length(TreeNode *root) {
-        if (root == nullptr)return 0;
-
-        auto a = length(root->left);
-        auto b = length(root->right);
-
-        if (abs(a - b) > 1 || a == -1 || b == -1) return -1;   //任一子树不平衡，一路返回
-
-        return max(a, b) + 1;
     }
 };
 
+int f(int &a,int b){
+    return ((a++)+b);
+}
+
+class A{
+public:
+    A(){cout<<1<<endl;}
+    A(int a){cout<<2<<endl;}
+    ~A(){cout<<3<<endl;}
+};
+A t(A a){
+    return a;
+}
 
 int main() {
-    vector<int> r = {1, 2, 4, 3, 7, 9, 8, 6};
-    Solution s{};
-
+//    int a=0x7fffffff,b=0x80000000;
+//    cout<<a+b<<endl;
+    A a=A{1};
+    A b=t(a);
 
     return 0;
 }
