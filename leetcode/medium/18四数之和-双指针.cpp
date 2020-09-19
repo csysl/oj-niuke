@@ -21,6 +21,7 @@ public:
      * @param nums int整型vector 整型数组
      * @param target int整型 目标值
      * @return int整型vector<vector<>>
+     * todo 注意去重以及去重的边界
      */
     vector<vector<int> > fourSum(vector<int> &nums, int target) {
         // write code here
@@ -28,29 +29,23 @@ public:
         sort(nums.begin(), nums.end());
         int len = nums.size();
         int ws = 0, we = len - 1;
-        bool flag = true;
-        while (we - ws > 2) {
-            int ls = ws + 1, le = we - 1;
-            int t = target - (nums[ws] + nums[we]);
-            while (ls < le) {
-                if (nums[ls] + nums[le] > t) --le;
-                else if (nums[ls] + nums[le] < t) ++ls;
-                else {
-                    vector<int> tmp;
-                    tmp.push_back(nums[ws]);
-                    tmp.push_back(nums[ls]);
-                    tmp.push_back(nums[le]);
-                    tmp.push_back(nums[we]);
-                    res.push_back(tmp);
-                    --le;
+        for (ws = 0; ws < we - 2; ++ws) {
+            if (ws > 0 && nums[ws] == nums[ws - 1])continue;
+            for (we = ws + 3; we < len; ++we) {
+                if (we <len-1 && nums[we] == nums[we + 1])continue;
+                int ls = ws + 1, le = we - 1;
+                int t = target - (nums[ws] + nums[we]);
+                while (ls < le) {
+                    if (nums[ls] + nums[le] > t) --le;
+                    else if (nums[ls] + nums[le] < t) ++ls;
+                    else {
+                        res.push_back({nums[ws],nums[ls],nums[le],nums[we]});
+                        --le;
+                        ++ls;
+                        while(ls<le&&nums[ls]==nums[ls-1])++ls;
+                        while(ls<le&&nums[le]==nums[le+1])--le;
+                    }
                 }
-            }
-            if (flag) {
-                flag = false;
-                ++ws;
-            } else {
-                flag = true;
-                --we;
             }
         }
         return res;
@@ -65,4 +60,5 @@ int main() {
         for (auto item:items)cout << item << " ";
         cout << endl;
     }
+
 }
